@@ -1,111 +1,109 @@
 ---
 layout: default
-title: Rails Girls on Heroku
+title: Rails Girls trên Heroku
 permalink: heroku
 ---
 
-# Put Your App Online With Heroku
+# Đưa ứng dụng của bạn trực tuyến với Heroku
 
-*Created by Terence Lee, [@hone02](https://twitter.com/hone02)*
+*Viết bởi Terence Lee, [@hone02](https://twitter.com/hone02)*
 
-### Get Heroku
+## Cài đặt Heroku
 
-Follow steps 1 through 3 of the [quickstart guide](https://devcenter.heroku.com/articles/quickstart) to sign up, install the toolbelt, and login.
+Làm theo các bước từ 1 đến 3 của [Heroku quickstart guide](https://devcenter.heroku.com/articles/quickstart) để đăng kí, cài đặt toolbelt và đăng nhập.
 
-__COACH__: Talk about the benefits of deploying to Heroku vs traditional servers.
+**Huấn luyện viên**: Nói về lợi ích của việc deploy trên Heroku so với các server thông thường.
 
-### Preparing your app
+## Chuẩn bị ứng dụng
 
-#### Version Control Systems
+### Hệ thống quản lý phiên bản
 
-We need to add our code to version control. You can do this by running the following in the terminal:
+Chúng ta cần đưa các đoạn code của mình vào hệ thống quản lý phiên bản (ở đây là Git). Chạy các lệnh sau trong terminal:
 
-{% highlight sh %}
+```sh
 git init
 echo "public/uploads" >> .gitignore
 echo "tmp" >> .gitignore
 echo "logs" >> .gitignore
 git add .
 git commit -m "initial commit"
-{% endhighlight %}
+```
 
-__COACH__: This would be a good time to talk about version control systems and git, also explain the `.gitignore` and why we don't want these files included.
+**Huấn luyện viên**: Đây là thời điểm thích hợp để nói về hệ thống quản lý phiên bản và Git, đồng thời giải thích về `.gitignore` và lí do tại sao chúng ta muốn bỏ qua các tệp tin trên.
 
-#### Updating our database
+### Cập nhật cơ sở dữ liệu
 
-First, we need to get our database to work on Heroku, which uses a different database. Please change the following in the Gemfile:
+Đầu tiên chúng ta cần làm cho cơ sở dữ liệu của ứng dụng hoạt động trên Heroku. Heroku sử dụng một hệ thống cơ sở dữ liệu khác với hệ thống cơ sở dữ liệu ứng dụng của chúng ta đang dùng. Vì thế hãy thay dòng sau trong `Gemfile`:
 
-{% highlight ruby %}
+```ruby
 gem 'sqlite3'
-{% endhighlight %}
+```
 
-to
+thành
 
-{% highlight ruby %}
+```ruby
 group :development do
   gem 'sqlite3'
 end
 group :production do
   gem 'pg'
 end
-{% endhighlight %}
+```
 
-Run `bundle install --without production` to setup your dependencies.
+Chạy `bundle install --without production` để cài đặt các dependencies.
 
-__COACH__: You can talk about RDBMS and the different ones out there, plus include some details on Heroku's dependency on PostgreSQL.
+**Huấn luyện viên**: Bạn có thể nói về RDBMS và giới thiệu một vài hệ thống cơ sở dữ liệu phổ biến, bao gồm chi tiết về PostgreSQL, cơ sở dữ liệu được Heroku sử dụng.
 
+### Thêm rails_12factor
 
-#### Adding rails_12factor
+Đến đây, chúng ta cần thêm `rails_12factor` vào trong `Gemfile` để ứng dụng của chúng ta có thể chạy trên Heroku.
 
-Next, we need to add `rails_12factor` entry into our Gemfile to make our app available on Heroku.
+Gem này sửa đổi cách Rails làm việc để phù hợp với Heroku, ví dụ Logging được cập nhật và các thiết lập cho static assets (bao gồm các tệp tin ảnh, stylesheets và javascript) được tinh chỉnh để hoạt động bình thường trong hệ thống của Heroku.
 
-This gem modifies the way Rails works to suit Heroku, for example Logging is updated and the configuration for static assets (your images, stylesheets and javascript files) is tweaked to work properly within Heroku's systems.
+Vui lòng chuyển đoạn sau trong `Gemfile`:
 
-Please change the following in the Gemfile:
-
-{% highlight ruby %}
+```ruby
 group :production do
   gem 'pg'
 end
-{% endhighlight %}
+```
 
-to
+thành
 
-{% highlight ruby %}
+```ruby
 group :production do
   gem 'pg'
   gem 'rails_12factor'
 end
-{% endhighlight %}
+```
 
-After this run `bundle`, then commit the changes to Gemfile.lock to your repository:
+Sau đó chay `bundle`, và commit các thay đổi ở `Gemfile.lock` vào repository của bạn.
 
-{% highlight sh %}
+```sh
 git commit -a -m "Added rails_12factor gem and updated Gemfile.lock"
-{% endhighlight %}
+```
 
-__COACH__: You can talk about logging on Heroku, as well as its other quirks.
+**Huấn luyện viên**: Bạn có thể nói về logging cũng như các hành vi *kì lạ* khác của Heroku.
 
+## Triển khai ứng dụng
 
-### Deploying your app
+### Tạo ứng dụng
 
-#### App creation
+Chúng ta cần tạo một ứng dụng trên Heroku bằng cách chạy lệnh `heroku create` trong terminal. Sau khi chạy lệnh, trên màn hình sẽ hiển thị giống như sau:
 
-We need to create our Heroku app by typing `heroku create` in the terminal and see something like this:
-
-{% highlight sh %}
+```sh
 Creating sheltered-refuge-6377... done, stack is cedar
 http://sheltered-refuge-6377.herokuapp.com/ | git@heroku.com:sheltered-refuge-6377.git
 Git remote heroku added
-{% endhighlight %}
+```
 
-In this case "sheltered-refuge-6377" is your app name.
+Trong trường hợp này "sheltered-refuge-6377" là tên ứng dụng của bạn.
 
-#### Pushing the code
+### Đẩy code lên Heroku
 
-Next we need to push our code to heroku by typing `git push heroku master`. You'll see push output like the following:
+Chúng ta cần đẩy code của ứng dụng lên Heroku bằng lệnh `git push heroku master`. Bạn có thể thấy output ra màn hình như sau:
 
-{% highlight sh %}
+```sh
 Initializing repository, done.
 Counting objects: 101, done.
 Delta compression using up to 2 threads.
@@ -122,40 +120,40 @@ Total 101 (delta 6), reused 0 (delta 0)
 ...
 -----> Launching... done, v6
        http://sheltered-refuge-6377.herokuapp.com/ deployed to Heroku
-{% endhighlight %}
+```
 
-You'll know the app is done being pushed, when you see the "Launching..." text like above.
+Bạn có thể chắc chắn rằng quá trình đẩy code lên đã thành công khi thấy dòng "Launching..." như ở trên.
 
-#### Migrate database
+### Migrate cơ sở dữ liệu
 
-Next we need to migrate our database like we did locally during the workshop: `heroku run rake db:migrate`.
+Tiếp theo chúng ta cần migrate cơ sở dữ liệu như chúng ta đã làm trên local bằng lệnh: `heroku run rake db:migrate`
 
-When that command is finished being run, you can hit the app based on the url. For this example app, you can go to <http://sheltered-refuge-6377.herokuapp.com/>. You can also type `heroku open` in the terminal to visit the page.
+Khi lệnh trên chạy xong, bạn có thể xem ứng dụng qua url được tạo ra bởi Heroku ở phía trên. Trong trường hợp này, địa chỉ của ứng dụng sẽ là http://sheltered-refuge-6377.herokuapp.com/. Bạn cũng có thể dùng lệnh `heroku open` trong terminal để tới trang ứng dụng.
 
+## Đọc thêm
 
-#### Closing notes
+Heroku platform không phải không có những điều khó chịu. Ứng dụng chạy trên Heroku nằm trong một thế giới ephemeral - có nghĩa là (không kể thông tin được lưu trữ trong cơ sở dữ liệu) bất cứ tệp tin nào được ứng dụng tạo ra sẽ biến mất khi ứng dụng được khởi động lại (ví dụ khi bạn triển khai phiên bản mới của ứng dụng).
 
-Heroku's platform is not without its quirks. Applications run on Heroku live within an ephermeral environment — this means that (except for information stored in your database) any files created by your application will disappear if it restarts (for example, when you push a new version).
+### [Ephemeral filesystem](https://devcenter.heroku.com/articles/dynos#ephemeral-filesystem)
 
-###### [Ephemeral filesystem](https://devcenter.heroku.com/articles/dynos#ephemeral-filesystem)
-> Each dyno gets its own ephemeral filesystem, with a fresh copy of the most recently deployed code. During the dyno’s lifetime its running processes can use the filesystem as a temporary scratchpad, but no files that are written are visible to processes in any other dyno and any files written will be discarded the moment the dyno is stopped or restarted.
+> Mỗi dyno có ephemeral filesystem riêng, với bản sao của lần triển khai code gần nhất. Trong suốt chu kì của dyno, các process đang chạy có thể sử dụng filesystem như là một bộ đệm tạm thời, tuy nhiên không có process trên bất cứ dyno nào khác có thể thấy được các các tệp tin đã được ghi vào hệ thống, và các tệp tin này sẽ bị loại bỏ ngay khi dyno bị dừng hoặc khởi động lại.
 
-In the [App](/app) tutorial the ability to attach a file to the Idea record is added, which results in new files being written to your applications `public/uploads` folder. The ephemeral storage in Heroku can be seen with the following steps:
+Trong hướng dẫn về [tạo ứng dụng](/app) chúng ta đã thêm khả năng đính kèm 1 tệp tin (cụ thể là tệp tin ảnh) cho Idea. Như vậy khi tạo một idea mới với ảnh đính kèm thì sẽ có tệp tin mới được tạo ra trong ứng dụng nằm trong thư mục `public/uploads`. Đặc trưng của ephemeral storage trên Heroku có thể được minh chứng qua thử nghiệm sau:
 
-1. Launch the app with `heroku open`
-2. Add a new Idea with an image
-3. Restart the application by running `heroku restart`
-4. Go back to your Idea and reload the page - the image should no longer be visible
+1. Mở ứng dụng với `heroku open`
+2. Thêm 1 ý tưởng (idea) mới kèm ảnh
+3. Khởi động lại ứng dụng bằng lệnh `heroku restart`
+4. Quay trở lại với trang ý tưởng bạn vừa tạo, bạn sẽ thấy ảnh đi kèm với ý tưởng không còn tồn tại
 
-##### Working around Ephemeral Storage
+###  Giải pháp cho Ephemeral Storage
 
-Obviously this doesn't seem to be useful if you were running a real life application, but there are ways to work around this which is commonly used by a lot of popular websites.
+Rõ ràng rằng khi chúng ta chạy một ứng dụng thật sự thì việc không lưu giữ các tệp tin mới không thực sự hữu dụng. Tuy nhiên vẫn có các giải pháp để giải quyết vấn đề này và đang được sử dụng bởi rất nhiều website.
 
-The most common method is to use an external asset host such as Amazon S3 (Simple Storage Service) or Rackspace CloudFiles. These services provide (for a low cost - usually less then $0.10 per GB) storage 'in the cloud' (meaning the files could potentially be hosted anywhere) which your application can use as persistent storage.
+Phương pháp phổ biến nhất là sử dụng một host lưu trữ bên ngoài như Amazon S3 (Simple Storage Service) hoặc Rackspace CloudFiles. Các nhà cung cấp dịch vụ này (với giá khá thấp - chưa đến $0.10 ~ 2000 VND cho mỗi GB dữ liệu) lưu trữ "trên các đám mây" (nghĩa là các tệp tin có thể được lưu trữ ở bất cứ đâu) và ứng dụng của bạn có thể dùng các dịch vụ này làm giải pháp lưu trữ bền vững.
 
-While this functionality is a bit out of scope for this tutorial there are some resources available which you can use to find your way:
+Mặc dù tính năng này hơi vượt quá phạm vi của hướng dẫn, tuy nhiên có một số tài nguyên liên quan nếu như bạn quan tâm:
 
 * [How to: Make Carrierwave work on Heroku](https://github.com/carrierwaveuploader/carrierwave/wiki/How-to%3A-Make-Carrierwave-work-on-Heroku)
 * [Amazon S3 - The Beginner' Guide](http://www.hongkiat.com/blog/amazon-s3-the-beginners-guide/)
 
-As always if you require any more information or assistance your coaches will be able to assist.
+Như thường lệ, nếu bạn cần thêm thông tin hay trợ giúp, các huấn luyện viên sẽ sẵn sàng hỗ trợ bạn.
