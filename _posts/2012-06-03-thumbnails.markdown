@@ -1,86 +1,80 @@
 ---
 layout: default
-title: Show thumbnails when listing ideas
+title: Hiển thị thumbnail trong danh sách ý tưởng
 permalink: thumbnails
 ---
 
-# Create thumbnails with Carrierwave
+# Tạo thumbnail với Carrierwave
 
-*Created by Miha Filej, [@mfilej](https://twitter.com/mfilej)*
+*Viết bởi Miha Filej, [@mfilej](https://twitter.com/mfilej)*
 
-__Coach__: Explain what specifying the image width in HTML at the end of Step
-4 does and how it differs from resizing images on the server.
+**Huấn luyện viên**: Giải thích việc chỉ định chiều dài của ảnh trong HTML ở bước 4 có ý nghĩa gì và nó khác với việc thay đổi kích thước ảnh trên server thế nào.
 
-## *1.*Installing ImageMagick
+## *1.* Cài đặt ImageMagick
 
-* OS X: run `brew install imagemagick`. If you don't have the brew command, you can [install Homebrew here][in-homebrew].
-* Windows: download and run the [ImageMagick installer][im-win] (use the first
-  *download* link).
-* Linux: On Ubuntu and Debian, run `sudo apt-get install imagemagick`. Use the
-  appropriate package manager instead of `apt-get` for other distributions.
+- **OS X**: chạy `brew install imagemagick`. Nếu chưa có brew, bạn có thể [cài đặt Homebrew tại đây]( http://mxcl.github.io/homebrew/).
+- **Windows**: tải về và chạy  [ImageMagick installer](http://www.imagemagick.org/script/binary-releases.php?ImageMagick=vkv0r0at8sjl5qo91788rtuvs3#windows) (sử dụng link *download* đầu tiên).
+- **Linux**: Trên Ubuntu và Debian, chạy `sudo apt-get install imagemagick`. Sử dụng package manager phù hợp thay cho `apt-get` ở các bản Linux khác.
 
-  [im-win]: http://www.imagemagick.org/script/binary-releases.php?ImageMagick=vkv0r0at8sjl5qo91788rtuvs3#windows
-  [in-homebrew]: http://mxcl.github.io/homebrew/
+**Huấn luyện viên**: Giải thích ImageMagick là gì và nó khác các thư viện / gem chúng ta sử dụng trước đây như thế nào.
 
-__Coach__: What is ImageMagick and how is it different from libraries/gems we
-used before?
+Mở `Gemfile` của dự án và thêm vào:
 
-Open `Gemfile` in the project and add
-
-{% highlight ruby %}
+```ruby
 gem 'mini_magick', '3.8.0'
-{% endhighlight %}
+```
 
-under the line
+dưới dòng
 
-{% highlight ruby %}
+```ruby
 gem 'carrierwave'
-{% endhighlight %}
+```
 
-In the Terminal run:
+Trong terminal chạy:
 
-{% highlight sh %}
+```sh
 bundle
-{% endhighlight %}
+```
 
-## *2.*Telling our app to create thumbnails when an image is uploaded
+## *2.* Thiết lập để ứng dụng tạo thumbnail khi có ảnh được tải lên
 
-Open `app/uploaders/picture_uploader.rb` and find the line that looks like
-this:
+Mở `app/uploaders/picture_uploader.rb` và tìm tới dòng giống như sau:
 
-{% highlight ruby %}
+```ruby
   # include CarrierWave::MiniMagick
-{% endhighlight %}
+```
 
-Remove the `#` sign.
+và bỏ kí tự `#` đi.
 
-__Coach__: Explain the concept of comments in code.
+**Huấn luyện viên**: Giải thích khái niệm comment (chú thích) trong code.
 
-Below the line you just changed, add:
+Dưới dòng bạn vừa sửa bên trên, thêm vào:
 
-{% highlight ruby %}
+```ruby
 version :thumb do
   process :resize_to_fill => [50, 50]
 end
-{% endhighlight %}
+```
 
 The images uploaded from now on should be resized, but the ones we already
 have weren't affected. So edit one of the existing ideas and re-add a picture.
 
-## *3.*Displaying the thumbnails
+Như vậy những ảnh tải lên sau này sẽ được tạo thumbnail, nhưng những ảnh chúng ta đã tải lên trước đây vẫn không có. Chúng ta có thể sửa các idea và thêm lại ảnh để có thumbnail.
 
-To see if the uploaded picture was resized open
-`app/views/ideas/index.html.erb`. Change the line
+## *3.* Hiển thị các thumbnail
 
-{% highlight erb %}
+To see if the uploaded picture was resized ope
+
+Để xem ảnh tải lên có được thay đổi kích thước hay chưa, hãy vào `app/views/ideas/index.html.erb`và sửa dòng:
+
+```erb
 <td><%= idea.picture %></td>
-{% endhighlight %}
+```
 
-to
+thành
 
-{% highlight erb %}
+```erb
 <td><%= image_tag idea.picture_url(:thumb) if idea.picture? %></td>
-{% endhighlight %}
+```
 
-Take a look at the list of ideas in the browser to see if the thumbnail is
-there.
+Bây giờ, bạn hãy vào trình duyệt xem trang danh mục các ý tưởng (idea) và xem các thumbnail đã được hiển thị ở đó chưa.
