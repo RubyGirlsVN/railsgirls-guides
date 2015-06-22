@@ -1,58 +1,72 @@
 ---
 layout: default
-title: Commenting functionality for the Rails Girls app
+title: Thêm tính năng bình luận cho ứng dụng Rails Girls
 permalink: commenting
 ---
-# Commenting for Rails Girls App
-*Created by Janika Liiv, [@janikaliiv](https://twitter.com/janikaliiv)*
 
-We are going to add the possibility to comment on ideas in your *railsgirls* application.
+# Thêm tính năng bình luận cho ứng dụng Rails Girls
 
-The instructions for installing rails and building the ideas app can be found [here](/app).
+*Viết bởi Janika Liiv, [@janikaliiv](https://twitter.com/janikaliiv)*
 
-## *1.*Create comment scaffold
+Chúng ta sẽ bổ sung thêm khả năng thêm bình luận (comment) vào ý tưởng (idea) cho ứng dụng *railsgirls*.
 
-Create a comment scaffold, with the commentator name, the comment body (contents of the comment) and with the reference to the ideas table (`idea_id`).
-{% highlight sh %}
+Hướng dẫn cài đặt Rails và xây dựng ứng dụng ý tưởng (idea) có thể xem [tại đây](/app).
+
+## *1.* Tạo scaffold cho bình luận (comment)
+
+Tạo một scaffold cho bình luận (comment), với tên người bình luận, nội dung của bình luận và tham chiếu tới bảng ý tưởng (ideas) (`idea_id`)
+
+```sh
 rails g scaffold comment user_name:string body:text idea_id:integer
-{% endhighlight %}
-This will create a migration file that lets your database know about the new comments table. Run the migrations using
-{% highlight sh %}
+```
+
+Lệnh này sẽ tạo ra một tệp tin migration có tác dụng thông báo cho cơ sở dữ liệu (database) về bảng comments mới. Chạy các tệp tin migrations với
+
+```sh
 rake db:migrate
-{% endhighlight %}
+```
 
-## *2.*Add relations to models
+## *2.* Thêm quan hệ vào các models
 
-You need to make sure that Rails knows the relation between objects (ideas and comments).
-As one idea can have many comments we need to make sure the idea model knows that.
-Open app/models/idea.rb and after the row
-{% highlight ruby %}
+Bạn cần đảm bảo rằng Rails biết về mối quan hệ giữa các đối tượng (ở đây là **ideas** và **comments**). Vì một ý tưởng (idea) có thể có nhiều bình-luận (comments) nên chúng ta cần đảm bảo model Idea biết điều này.
+
+Mở `app/models/idea.rb` và dưới dòng
+
+```ruby
 class Idea < ActiveRecord::Base
-{% endhighlight %}
-add
-{% highlight ruby %}
+```
+
+thêm
+
+```ruby
 has_many :comments
-{% endhighlight %}
+```
 
 The comment also has to know that it belongs to an idea. So open `app/models/comment.rb` and after
-{% highlight ruby %}
+
+Bình-luận (comment) cũng cần phải biết rằng nó thuộc về một ý tưởng (idea). Nên hãy mở `app/models/comment.rb` và sau dòng
+
+```ruby
 class Comment < ActiveRecord::Base
-{% endhighlight %}
+```
 
-add the row
-{% highlight ruby %}
+thêm
+
+```ruby
 belongs_to :idea
-{% endhighlight %}
+```
 
-## *3.*Render the comment form and existing comments
+## *3.* Hiển thị biểu mẫu thêm bình-luận (comment form) và các bình luận đã có
 
-Open app/views/ideas/show.html.erb and after the image_tag
-{% highlight erb %}
+Mở `app/views/ideas/show.html.erb` và sau `image_tag`
+
+```erb
 <%= image_tag(@idea.picture_url, :width => 600) if @idea.picture.present? %>
-{% endhighlight %}
+```
 
-add
-{% highlight erb %}
+thêm
+
+```erb
 <h3>Comments</h3>
 <% @comments.each do |comment| %>
   <div>
@@ -63,38 +77,43 @@ add
   </div>
 <% end %>
 <%= render 'comments/form' %>
-{% endhighlight %}
+```
 
-In `app/controllers/ideas_controller.rb` add to show action after the row
-{% highlight ruby %}
+Trong `app/controllers/ideas_controller.rb` thêm vào action `show` sau dòng
+
+```ruby
 @idea = Idea.find(params[:id])
-{% endhighlight %}
+```
 
-this
-{% highlight ruby %}
+đoạn code sau
+
+```ruby
 @comments = @idea.comments.all
 @comment = @idea.comments.build
-{% endhighlight %}
+```
 
-Open `app/views/comments/_form.html.erb` and after
-{% highlight erb %}
-  <div class="field">
-    <%= f.label :body %><br />
-    <%= f.text_area :body %>
-  </div>
-{% endhighlight %}
+Mở `app/views/comments/_form.html.erb` và sau đoạn
 
-add the row
-{% highlight erb %}
+```erb
+<div class="field">
+  <%= f.label :body %><br />
+  <%= f.text_area :body %>
+</div>
+```
+
+thêm dòng sau
+
+```erb
 <%= f.hidden_field :idea_id %>
-{% endhighlight %}
+```
 
-next, remove
-{% highlight erb %}
+sau đó, xóa
+
+```erb
 <div class="field">
   <%= f.label :idea_id %><br>
   <%= f.number_field :idea_id %>
 </div>
-{% endhighlight %}
+```
 
-That's it. Now view an idea you have inserted to your application and there you should see the form for inserting a comment as well as deleting older comments.
+Vậy là xong. Bây giờ bạn có thể xem ý tưởng (idea) bạn đã thêm vào ứng dụng trước đây, ở đó bạn sẽ thấy các bình luận cũ và biểu mẫu để thêm bình-luận (comment) mới.
