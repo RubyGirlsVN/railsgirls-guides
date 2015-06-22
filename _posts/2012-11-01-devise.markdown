@@ -1,95 +1,100 @@
 ---
 layout: default
-title: Adding Authentication with Devise
+title: Thêm tính năng xác thực với Devise
 permalink: devise
 ---
 
-# Adding Authentication with Devise
+# Thêm tính năng xác thực với Devise
 
-*Created by Piotr Steininger, [@polishprince](https://twitter.com/polishprince)*
+*Viết bởi Piotr Steininger, [@polishprince](https://twitter.com/polishprince)*
 
-*Updated by Ernesto Jimenez, [@ernesto_jimenez](https://twitter.com/ernesto_jimenez)*
+*Cập nhật bởi Ernesto Jimenez, [@ernesto_jimenez](https://twitter.com/ernesto_jimenez)*
 
-**This guide assumes that you have already built a Rails Girls app by** [**following the app development guide**](/app).
+** Hướng dẫn này giả định rằng bạn đã xây dựng một ứng dụng Rails Girls theo** [**hướng dẫn xây dựng ứng dụng**](/app).
 
 
-## *1.*Add devise gem
+## *1.* Thêm devise gem
 
-Open up your `Gemfile` and add this line
+Mở `Gemfile` và thêm
 
-{% highlight ruby %}
+```ruby
 gem 'devise'
-{% endhighlight %}
-and run
-{% highlight sh %}
+```
+
+rồi chạy
+
+```sh
 bundle install
-{% endhighlight %}
-to install the gem. **Also remember to restart the Rails server**.
+```
 
-## *2.*Set up devise in your app
+để cài đặt gem. **Và nhớ khởi động lại server**.
 
-Run the following command in the terminal.
+## *2.* Thiết lập devise trong ứng dụng
 
-{% highlight sh %}
+Chạy lệnh sau trong terminal:
+
+```sh
 rails g devise:install
-{% endhighlight %}
+```
 
+## *3.* Cấu hình Devise
 
-## *3.*Configure Devise
+Hãy chắc chắn bạn đã định nghĩa `default_url_options` trong các tệp tin môi trường. Mở `config/environments/development.rb` và thêm dòng sau:
 
-Ensure you have defined default url options in your environments files. Open up `config/environments/development.rb` and add this line:
-{% highlight ruby %}
+```ruby
    config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-{% endhighlight %}
+```
 
-before the `end` keyword.
+trước từ khóa `end`.
 
-Open up `app/views/layouts/application.html.erb` and add:
+Mở `app/views/layouts/application.html.erb` và thêm:
 
-{% highlight erb %}
+```erb
 <% if notice %>
   <p class="alert alert-success"><%= notice %></p>
 <% end %>
 <% if alert %>
   <p class="alert alert-danger"><%= alert %></p>
 <% end %>
-{% endhighlight %}
-right above
-{% highlight ruby %}
+```
+ngay phía trên
+
+```erb
    <%= yield %>
-{% endhighlight %}
+```
 
-Open up `app/views/ideas/show.html.erb` and remove the line that says:
+Mở `app/views/ideas/show.html.erb` và xóa dòng:
 
-{% highlight erb %}
+```erb
 <p id="notice"><%= notice %></p>
-{% endhighlight %}
+```
 
-Do the same for `app/views/comments/show.html.erb`. These lines are not necessary as we've put the notice in the `app/views/layouts/application.html.erb` file.
+Làm tương tự với `app/views/comments/show.html.erb`. Những dòng này không còn cần thiết vì chúng ta đã đưa phần "notice" vào tệp tin `app/views/layouts/application.html.erb`.
 
-## *4.*Setup the User model
+## *4.* Thành lập User model
 
-We'll use a bundled generator script to create the User model.
-{% highlight sh %}
+Chúng ta sẽ sử dụng một generator script có sẵn để khởi tạo User model.
+
+```sh
    rails g devise user
    rake db:migrate
-{% endhighlight %}
+```
 
-**Coach:** Explain what user model has been generated. What are the
-fields?
+**Huấn luyện viên**: Giải thích về user model được khởi tạo. Các trường (fields) là gì?
 
-## *5.*Create your first user
+## *5.* Tạo user đầu tiên
 
-Now that you have set everything up you can create your first user. Devise creates all the code and routes required to create accounts, log in, log out, etc.
+Bây giờ, khi mọi thứ đã được thiết lập xong, bạn có thể khởi tạo user đầu tiên. Devise đã tạo tất cả các đoạn code và routes cần thiết cho việc tạo tài khoản, đăng nhập, đăng xuất, v.v.
 
-Make sure your rails server is running, open [http://localhost:3000/users/sign_up](http://localhost:3000/users/sign_up) and create your user account.
+Hãy chắc chắn là server đang chạy, mở [http://localhost:3000/users/sign_up](http://localhost:3000/users/sign_up) và tạo tài khoản cho bạn.
 
-## *6.*Add sign-up and login links
+## *6.* Thêm liên kết đăng kí và đăng nhập
 
-All we need to do now is to add appropriate links or notice about the user being logged in in the top right corner of the navigation bar.
+Tất cả những việc cần làm bây giờ là thêm liên kết hoặc lưu ý (notice) phù hợp dựa trên tình trạng đăng nhập của người dùng vào góc trên bên phải của thanh điều hướng.
 
-In order to do that, edit `app/views/layouts/application.html.erb` add:
-{% highlight erb %}
+Để thực hiện, mở `app/views/layouts/application.html.erb` và thêm:
+
+```erb
 <p class="navbar-text pull-right">
 <% if user_signed_in? %>
   Logged in as <strong><%= current_user.email %></strong>.
@@ -99,31 +104,31 @@ In order to do that, edit `app/views/layouts/application.html.erb` add:
   <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
   <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
 <% end %>
-{% endhighlight %}
-right after
-{% highlight erb %}
+```
+
+vào ngay dưới
+
+```erb
 <ul class="nav">
   <li class="active"><a href="/ideas">Ideas</a></li>
 </ul>
-{% endhighlight %}
+```
 
-Finally, force the user to redirect to the login page if the user was not logged in. Open up `app/controllers/application_controller.rb` and add:
+Cuối cùng, chúng ta sẽ bắt buộc người dùng phải đăng nhập nếu như họ chưa đăng nhập khi sử dụng ứng dụng. Mở `app/controllers/application_controller.rb` và thêm:
 
-{% highlight ruby %}
+```ruby
   before_action :authenticate_user!
-{% endhighlight %}
+```
 
-after `protect_from_forgery with: :exception`.
+dưới dòng `protect_from_forgery with: :exception`.
 
-Open your browser and try logging in and out from.
+Mở ứng dụng bằng trình duyệt và thử đăng nhập / đăng xuất.
 
-**Coach:** Talk about the `user_signed_in?` and `current_user` helpers. Why are they useful?
+**Huấn luyện viên**: Nói về các helper `user_signed_in?` và `current_user`. Giải thích vì sao chúng hữu ích?
 
-## What next?
+## Làm gì tiếp theo?
 
-* Add extra fields to the User model
-* Add relationships between users and ideas
-* Restrict users to only be able to edit their own ideas and delete their own comments
-* Expand to use roles or permissions (use one of the popular authorization gem like CanCan)
-
-
+- Thêm trường vào User model
+- Thêm quan hệ  giữa `users` và `ideas`
+- Chỉ cho phép user sửa những idea do mình tạo ra và xóa những comment do mình viết
+- Mở rộng thêm vai trò (role) hoặc permission (sử dụng một gem ủy quyền phổ biến như CanCan)
