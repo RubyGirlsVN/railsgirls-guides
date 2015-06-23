@@ -1,135 +1,141 @@
 ---
 layout: default
-title: You better check you app, before you wreck your app
+title: Test ứng dụng với RSpec
 permalink: testing-rspec
 ---
 
-# Test your app with RSpec
+# Test ứng dụng với RSpec
 
-*Created by Clemens Helm, [@clemenshelm](https://twitter.com/clemenshelm) and Floor Drees, [@floordrees](https://twitter.com/floordrees)* 
+*Viết bởi Clemens Helm, [@clemenshelm](https://twitter.com/clemenshelm) and Floor Drees, [@floordrees](https://twitter.com/floordrees)*
 
-RSpec is a Ruby testing framework, that describes our application's behavior in a syntax that doesn't look much like Ruby. It outputs test results in your terminal, so you'll test your reading skills as well (pun intended).
+RSpec là một framework test cho Ruby, nó mô tả các hành vi của ứng dụng bằng một loại cú pháp không giống cú pháp của Ruby cho lắm. RSpec output kết quả test ra terminal nên bạn cũng sẽ được test kĩ năng đọc của mình luôn .
 
-__COACH__: Talk about testing and Behavior-Driven Development.
+**Huấn luyện viên**: Nói về test phần mềm và Behavior-Driven Development (BDD).
 
-### Install rspec
+## Cài đặt RSpec
 
-For starters, let's install RSpec and all of its dependencies. 
-{% highlight sh %}
+Để bắt đầu, chúng ta hãy cùng cài đặt RSpec và các dependencies của nó:
+
+```sh
 gem install rspec
-{% endhighlight %}
+```
 
-Then we call
-{% highlight sh %}
+Sau đó chạy:
+
+```sh
 rspec --init
-{% endhighlight %}
+```
 
-in our project directory. This creates `spec_helper.rb` in the spec folder, and `.rspec`.
+trong thư mục của dự án đang làm. Lệnh này sẽ tạo ra tệp tin `spec_helper.rb` trong thư mục `spec`, và tệp tin `.rspec`.
 
-Rubyists often use the words 'test' and 'specification' interchangeably, that's why you'll store your tests in the 'specs' folder. Save your test as `idea_spec.rb` (`<name_of_spec>_spec.rb`).
+Rubyists (các lập trình viên Ruby) thường sử dụng hai từ "test" và "đặc tả kĩ thuật" (specification) thay thế qua lại, vì thế các test thường được lưu trữ trong thư mục `specs`. Lưu test bạn vừa viết với tên `idea_spec.rb` (`<name_of_spec>_spec.rb`).
 
-Inside that new file, write:
-  
-{% highlight ruby %}
+Trong tệp tin mới vừa tạo, nhập:
+
+```ruby
 require "spec_helper"
 require "idea"
-{% endhighlight %}
+```
 
-Next, let's describe one of our specifications
-{% highlight ruby %}
+Tiếp theo hãy mô tả một trong số các đặc tả kĩ thuật (specification)
+
+```ruby
 describe Idea do
   it "has a title" # your examples (tests) go here
 end
-{% endhighlight %}
+```
 
-In your terminal run
-{% highlight sh %}
+Trong terminal chạy:
+
+```sh
 rspec spec/lib/idea_spec.rb
-{% endhighlight %}
+```
 
-which will output that your test is pending as it's not yet implemented. 
+Lệnh này sẽ output rằng test của bạn đang ở trạng thái `pending` vì bạn chưa triển khai test.
 
-__COACH__: Talk about googling terminal output.
+**Huấn luyện viên**: Nói về googling (tìm kiếm bằng Google) các output từ terminal.
 
-Let's do something about that!
-{% highlight ruby %}
+Hãy cùng triển khai test case đầu tiên:
+
+```ruby
 describe Idea do
   it "has a title" do # yep, you can totally use 'it'
     idea = Idea.new # creating a new idea 'instance'
     idea.title.should be_true # this is our expectation
   end
 end
-{% endhighlight %}
+```
 
-should give you a more satisfying output.
+Chạy lại lệnh phía trên sẽ cho ra output thỏa mãn mục tiêu của bạn.
 
-####Refactoring
+### Refactoring
 
-You could actually also write:  
+Bạn có thể viết như sau:  
 
-{% highlight ruby %}
+```ruby
 describe Idea do
   its(:title) { should be_true }
 end
-{% endhighlight %}
+```
 
-which looks a lot nicer, but there's a lot of magic involved. For now it's probably jyst nice to know that we can 'refactor' those big chuncks of code into smaller bits with a little more experience.  
+trông sẽ đẹp hơn rất nhiều, mặc dù có rất nhiều "phép màu" xảy ra ở đoạn code này. Hiện tại, bạn không cần quan tâm nhiều đến những "phép màu" đó, hãy vui vẻ vì chúng ta có thể "refactor" những đoạn code dài thành những đoạn nhỏ đẹp đẽ chỉ với một chút kinh nghiệm.
 
-__COACH__: Talk a bit about refactoring.  
+**Huấn luyện viên**: Nói một chút về refactoring.  
 
-#### Marking to-do's with tests
+### Đánh dấu các test
 
-Yeah! To-do lists. Awesome. A nifty RSpec feature is the functionality to mark certain tests as pending. 
+Giống như to-do lists, có những test case bạn chưa muốn triển khai ngay. RSpec có một tính năng tiện lợi giúp bạn đánh dấu trạng thái `pending` cho các test cụ thể.
 
-Leaving out the `do` and the `end` in the example body, like so
+Bỏ `do` và `end` khỏi nội dung của test case như sau
 
-{% highlight ruby %}
+```ruby
 it "has a title"
-{% endhighlight %}
+```
 
-will mark a test as pending. For bigger applications, where you want to tackle one test at a time, you can also add an `x` in front of an example, making it read 
-{% highlight ruby %}
-describe Idea do  
+sẽ đánh dấu test case đó ở trạng thái pending. Với các ứng dụng lớn hơn, khi mà bạn chỉ muốn xử lí từng test mỗi lần, bạn có thể thêm kí tự `x` trước test case như sau:
+
+```ruby
+describe Idea do
   xit "has a title" do
 end
-{% endhighlight %}
+```
 
-or use the word `pending` in your example.
+hoặc dùng từ `pending` trong test case.
 
-### Behavior-Driven Development
+## Behavior-Driven Development (BDD)
 
-Normally we would go about BDD testing in a slightly different way. Thinking about the application we want to build, we'll write down our expectations and then start building step by step, with the specifications in mind. 
+Thường thì chúng ta sẽ thực hiện BDD testing hơi khác một chút. Suy nghĩ về ứng dụng chúng ta muốn xây dựng, chúng ta sẽ viết những kì vọng của chúng ta về ứng dụng trước rồi bắt đầu xây dựng từng bước, với các đặc tả kĩ thuật trong đầu.
 
-We'd first write 
+Ban đầu chúng ta viết
 
-{% highlight ruby %}
+```ruby
 describe Idea do
   it "has a title"
-    idea = Idea.new 
-    idea.title.should be_true 
+    idea = Idea.new
+    idea.title.should be_true
     # or, alternatively: idea.title.should == true
   end
 end
-{% endhighlight %}
+```
 
-and only then create a file named `idea.rb` introducing the idea class
+và sau đó tạo tệp tin `idea.rb` khai báo class `Idea `
 
-{% highlight ruby %}
+```ruby
 class Idea
 attr_accessor  :title
 end
-{% endhighlight %}
+```
 
-as running `rspec spec/lib/idea_spec.rb` in your terminal before you've implemented that class will throw you an error. Luckely, errors are nothing to be afraid of. RSpec errors actually help you write (the necessary) code! 
+vì chạy `rspec spec/lib/idea_spec.rb` trong terminal trước khi tạo class `Idea` sẽ output ra lỗi.  May mắn là các lỗi không phải là thứ gì đáng sợ. Lỗi trong RSpec thực tế giúp bạn viết các đoạn code cần thiết.
 
-Try and write tests for the follow up guides to check if you're implementing ALL the right things. 
+Hãy thử viết test cho các hướng dẫn tiếp theo để kiểm tra xem bạn có triển khai đúng TẤT CẢ mọi thứ không.
 
-{% highlight ruby %}
+```ruby
 describe Attendee do
   it "tests everything"
 end
-{% endhighlight %}
+```
 
-Just saying.
+Nói vậy thôi :D
 
 Happy testing!
