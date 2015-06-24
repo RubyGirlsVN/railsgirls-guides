@@ -1,59 +1,61 @@
 ---
 layout: default
-title: Continuous Deployment - cuz less hassle
+title: Continuous Deployment với Codeship
 permalink: continuous
 ---
 
-# Continuous Deployment with the Codeship
+# Continuous Deployment với Codeship
 
-*Created by Floor Drees, [@floordrees](https://twitter.com/floordrees)* 
+*Viết bởi Floor Drees, [@floordrees](https://twitter.com/floordrees)*
 
-### What is this Continuous Deployment thing?
+## Continuous Deployment là gì?
 
-Continuous deployment is part of the continuous delivery 'movement'. The idea behind continuous delivery is to automate the software delivery process as far as possible. 
+Continuous Deployment là một phần của "phong trào" chuyển phát liên tục (continuous delivery). Ý tưởng của chuyển phát liên tục là tự động hóa càng nhiều càng tốt quá trình chuyển phát phần mềm.
 
-With a working continuous deployment chain in place you'll enforce Git deployments (everything must be committed to be tested and everything must be tested to be deployed), making collaboration easier and deployment faster. So you can focus on making your app even more awesome!
+Với một dây chuyền continuous deployment đang hoạt động, bạn sẽ thi hành Git deployment (triển khai ứng dụng với Git) (mọi thứ phải được commit để được test, và mọi thứ phải được test trước khi được deploy). Điều này sẽ làm cho việc phối hợp trở lên dễ dàng hơn và triển khai (deploy) ứng dụng nhanh hơn. Bạn sẽ có nhiều thời gian hơn tập trung cho phát triển ứng dụng, làm nó trở lên ngày càng tốt hơn.
 
-There are a few great companies sailing the continuous wave, in this guide we'll set up continuous deployment for our Ruby on Rails app from GitHub to Heroku, using the [Codeship](http://www.codeship.io). 
+Một vài công ty tuyệt vời đang mở đường cho làn sóng continuous deployment, và trong hướng dẫn này chúng ta sẽ cùng thiết lập qui trình continuous deployment cho ứng dụng Ruby on Rails của mình từ Github tới Heroku thông qua [Codeship](http://www.codeship.io).
 
-__COACH__: Talk about the benefits of continuous deployment.
+**Huấn luyện viên**: Nói về các lợi ích của continuous deployment.
 
-### Sign up for Codeship
+## Đăng kí tài khoản Codeship
 
-First, you need [a Codeship account](https://www.codeship.io/). Sign in to the Codeship with GitHub. The Codeship needs access to your GitHub repositories to be able to set them up, so make sure you allow access.  
+Đầu tiên bạn cần [một tài khoản Codeship](https://www.codeship.io/). Đăng nhập Codeship thông qua tài khoản Github. Codeship cần truy cập vào các repositories trong tài khoản Github của bạn để thiết lập continuous deployment, vì thế hãy chắc chắn rằng bạn cấp quyền truy cập cho Codeship.
 
-Back at the Codeship, let’s create your first project. The first step is to select GitHub as your repository provider. In the list of your GitHub repositories, search for the repository you want to set up and select it. In our case, that's the one called something like “railsgirls”.
+Trở lại với Codeship, hãy cùng khởi tạo dự án đầu tiên. Bước thứ nhất là lựa chọn GitHub làm nhà cung cấp repository. Trong danh sách các GitHub repositories, tìm repository bạn muốn cài đặt và chọn nó. Vì chúng ta đang làm ứng dụng `railsgirls` nên bạn có thể sẽ muốn chọn repository `railsgirls`.
 
-Now your repository is connected and you can set up your test commands. We've created a Ruby on Rails application. So choose “Ruby on Rails” as the framework used. This configures the setup commands and the test commands for you. By deleting the hash key (`#`) you can uncomment test commands you want to use for your application. For now you probably don't have tests set up yet, so you can skip this step and get back to it later.
+Bây giờ, repository của bạn đã được kết nối (với Codeship), bạn có thể thiết lập các lệnh test. Bởi vì chúng ta đang làm việc với ứng dụng Ruby on Rails nên bạn hãy chọn "Ruby on Rails" là framework đang sử dụng. Codeship sẽ dựa trên lựa chọn này tạo ra những lệnh cài đặt và test phù hợp cho ứng dụng của bạn. Các lệnh test được tạo sẵn nhưng nằm ở trạng thái comment (dòng lệnh bắt đầu với kí tự `#`), bạn có thể uncomment các lệnh muốn sử dụng. Hiện tại có thể ứng dụng của bạn chưa cài đặt test nên bạn có thể bỏ qua phần này và quay lại cài đặt sau.
 
-Now let's finish your setup and go to the dashboard. You can trigger a so-called 'new build' for your application by changing something and then pushing to your repository: 
-{% highlight sh %}
+Hoàn tất quá trình thiết lập và đi tới bảng điều khiển (dashboard). Bạn có thể kích hoạt một "bản build mới" cho ứng dụng bằng việc thay đổi cái gì đó trong ứng dụng và push các thay đổi lên repository:
+
+```sh
 git add .  
 git commit -m "test Codeship integration"  
 git push origin master
-{% endhighlight %}
+```
 
-You can access the build details by clicking the arrow on the right. Here you can follow the build while it's still running. Better than reality tv - promised. 
+Bạn có thể xem thông tin chi tiết về bản build bằng cách nhấn vào mũi tên phía bên phải. Bạn có thể quan sát trong khi bản build này đang chạy. Bảo đảm hay hơn chương tình truyền hình thực tế.
 
-... and a few seconds later your build succeeded! You see all the commands that were run. After a few initial preparation commands the Codeship ran the commands that you specified a few moments ago. You can inspect the output of a single command by clicking on it. 
+... và vài giây sau, bản build chạy thành công! Bạn có thể thấy tất cả các lệnh đã được chạy: sau vài lệnh chuẩn bị ban đầu, Codeship sẽ chạy các lệnh bạn chỉ định lúc trước. Bạn có thể xem các output của một lệnh cụ thể bằng cách nhấn vào lệnh đó.
 
-You've already pushed to your repository, watched your build log and got a green build. So you can finish the assistant at the top by clicking on the "click to finish" button.
+Như vậy bạn đã vừa push code lên repository, xem log của bản build và có được một green build (bản build thành công). Chúc mừng bạn và hãy cùng sang bước tiếp theo.
 
-### Setup Continuous Deployment
+## Cài đặt Continuous Deployment
 
-Now let's deploy your application to Heroku. Go to your project settings by clicking on the settings icon in the projects dropdown on the Codeship. Then navigate to the "Deployment" section. As you want to deploy to Heroku, click on the "Heroku" button.
+Bây giờ, hãy cùng triển khai (deploy) ứng dụng của bạn lên Heroku. Nhấn vào thiết lập dự án (project settings) ở góc trên bên phải, chọn "Deployment" từ danh sách. Bạn sẽ được chuyển tới trang thiết lập "Deployment". Vì chúng ta dự định triển khai dự án lên Heroku nên bạn hãy nhấn vào logo của "Heroku".
 
-You are asked to enter the name of your Heroku application and your API key. I sure hope you wrote that down somewhere! Enter your application's name and API key (to retrieve your Heroku API key, go to your Heroku account and click "Show API key") and save your deployment configuration.
+Bạn sẽ được đề nghị nhập tên ứng dụng của mình trên Heroku cũng như API key. Để có API key, bạn có thể vào trang [tài khoản của mình trên Heroku](https://dashboard.heroku.com/account) và nhấn vào nút có nội dung "Show API key". Nhập tên ứng dụng và API key của bạn và lưu thiết lập này lại.
 
-From now on the Codeship will deploy your application to Heroku, everytime you push to your GitHub repository. Neat! 
+Vậy là từ bây giờ Codeship sẽ triển khai ứng dụng của bạn lên Heroku tự động mỗi khi bạn push code lên GitHub repository của mình. Tuyệt vời!
 
-### Give it a try
-Now let's push a change and see if it gets deployed. Change something in your application first, then commit and push the change.
+## Cùng thử nghiệm
 
-{% highlight sh %}
+Bây giờ hãy cùng push một thay đổi và xem thay đổi đó có được deploy hay không. Thay đổi một chút cho ứng dụng của bạn (tiêu đề ứng dụng chẳng hạn), rồi commit và push thay đổi đó lên Github.
+
+```sh
 git add .  
 git commit -m "this changes everything"  
 git push
-{% endhighlight %}
+```
 
-And immediately another build will start running on the Codeship. Go back to your project overview and you'll see the commands we already know from your first build. Plus: your application gets deployed to Heroku now and should be online after a minute or two.
+Và ngay sau đó, một bản build mới sẽ bắt đầu chạy trên Codeship. Ứng dụng của bạn sẽ được triển khai tự động lên Heroku và bạn có thể thấy những thay đổi bạn vừa thực hiện trên ứng dụng của mình trên Internet chỉ sau 1 - 2 phút.
