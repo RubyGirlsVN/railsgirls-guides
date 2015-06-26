@@ -18,15 +18,15 @@ Bạn cần có một địa chỉ email đã đăng kí với Gravatar để th
 
 Mở `Gemfile` và dưới `devise` gem, thêm vào
 
-```ruby
+{% highlight ruby %}
 gem 'gravtastic'
-```
+{% endhighlight %}
 
 Trong terminal chạy
 
-```sh
+{% highlight sh %}
 bundle install
-```
+{% endhighlight %}
 
 Gravtastic gem sẽ được cài đặt. Hãy nhớ khởi động lại server.
 
@@ -34,10 +34,10 @@ Gravtastic gem sẽ được cài đặt. Hãy nhớ khởi động lại server
 
 Mở `app/models/user.rb` và thêm đoạn code sau
 
-```ruby
+{% highlight ruby %}
 include Gravtastic
 gravtastic
-```
+{% endhighlight %}
 
 vào ngay sau dòng đầu tiên.
 
@@ -45,20 +45,20 @@ vào ngay sau dòng đầu tiên.
 
 Mở `app/views/layouts/application.html.erb` và giữa
 
-```erb
+{% highlight erb %}
 <% if user_signed_in? %>
-```
+{% endhighlight %}
 
 và
 
-```erb
+{% highlight erb %}
 <% else %>
-```
+{% endhighlight %}
 
 thêm
 
-```erb
+{% highlight erb %}
 <%= image_tag current_user.gravatar_url %>
-```
+{% endhighlight %}
 
 Bây giờ bạn có thể mở ứng dụng bằng trình duyệt và đăng nhập với email (đã được liên kết với 1 Gravatar). Bạn sẽ thấy Gravatar của bạn hiển thị trong ứng dụng.

@@ -20,29 +20,29 @@ permalink: thumbnails
 
 Mở `Gemfile` của dự án và thêm vào:
 
-```ruby
+{% highlight ruby %}
 gem 'mini_magick', '3.8.0'
-```
+{% endhighlight %}
 
 dưới dòng
 
-```ruby
+{% highlight ruby %}
 gem 'carrierwave'
-```
+{% endhighlight %}
 
 Trong terminal chạy:
 
-```sh
+{% highlight sh %}
 bundle
-```
+{% endhighlight %}
 
 ## *2.* Thiết lập để ứng dụng tạo thumbnail khi có ảnh được tải lên
 
 Mở `app/uploaders/picture_uploader.rb` và tìm tới dòng giống như sau:
 
-```ruby
+{% highlight ruby %}
   # include CarrierWave::MiniMagick
-```
+{% endhighlight %}
 
 và bỏ kí tự `#` đi.
 
@@ -50,11 +50,11 @@ và bỏ kí tự `#` đi.
 
 Dưới dòng bạn vừa sửa bên trên, thêm vào:
 
-```ruby
+{% highlight ruby %}
 version :thumb do
   process :resize_to_fill => [50, 50]
 end
-```
+{% endhighlight %}
 
 The images uploaded from now on should be resized, but the ones we already
 have weren't affected. So edit one of the existing ideas and re-add a picture.
@@ -67,14 +67,14 @@ To see if the uploaded picture was resized ope
 
 Để xem ảnh tải lên có được thay đổi kích thước hay chưa, hãy vào `app/views/ideas/index.html.erb`và sửa dòng:
 
-```erb
+{% highlight erb %}
 <td><%= idea.picture %></td>
-```
+{% endhighlight %}
 
 thành
 
-```erb
+{% highlight erb %}
 <td><%= image_tag idea.picture_url(:thumb) if idea.picture? %></td>
-```
+{% endhighlight %}
 
 Bây giờ, bạn hãy vào trình duyệt xem trang danh mục các ý tưởng (idea) và xem các thumbnail đã được hiển thị ở đó chưa.

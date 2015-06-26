@@ -14,15 +14,15 @@ Bây giờ ứng dụng của chúng ta đã hoạt động ổn định, tuy nh
 
 Mở `app/assets/stylesheets/application.css` và thay dòng:
 
-```css
+{% highlight css %}
 body { padding-top: 100px; }
-```
+{% endhighlight %}
 
 bằng
 
-```css
+{% highlight css %}
 body { padding-top: 60px; }
-```
+{% endhighlight %}
 
 Cuối cùng, hãy xóa tệp tin `app/assets/stylesheets/scaffolds.css.scss` vì chúng ta không thực sự cần các style mặc định được tạo bởi Rails.
 
@@ -34,15 +34,15 @@ Có thể thấy rằng "idea" là đối tượng trọng tâm của ứng dụ
 
 Mở `app/views/layouts/application.html.erb` và dưới dòng:
 
-```erb
+{% highlight erb %}
 <li class="active"><a href="/ideas">Ideas</a></li>
-```
+{% endhighlight %}
 
 thêm
 
-```erb
+{% highlight erb %}
 <li ><%= link_to 'New Idea', new_idea_path %></li>
-```
+{% endhighlight %}
 
 ## *3.* Thiết kế trang danh sách idea
 
@@ -52,7 +52,7 @@ Bây giờ chúng ta sẽ làm cho trang liệt kê idea trông chuyên nghiệp
 
 Mở `app/views/ideas/index.html.erb` bằng trình soạn thảo và thay toàn bộ nội dung với:
 
-```erb
+{% highlight erb %}
 <h1>Listing ideas</h1>
 
 <% @ideas.in_groups_of(3) do |group| %>
@@ -66,7 +66,7 @@ Mở `app/views/ideas/index.html.erb` bằng trình soạn thảo và thay toàn
     <% end %>
   </div>
 <% end %>
-```
+{% endhighlight %}
 
 **Huấn luyện viên**: Giải thích ý nghĩa của từng dòng code mới, và nói một chút về bố cục dạng lưới 12 cột của Bootstrap.
 
@@ -78,7 +78,7 @@ Nhấn vào tiêu đề của một idea, bạn sẽ được chuyển đến tr
 
 Mở `app/views/ideas/show.html.erb` bằng trình soạn thảo và thay toàn bộ nội dung với:
 
-```erb
+{% highlight erb %}
 <p id="notice"><%= notice %></p>
 
 <div class="row">
@@ -96,7 +96,7 @@ Mở `app/views/ideas/show.html.erb` bằng trình soạn thảo và thay toàn 
     </p>
   </div>
 </div>
-```
+{% endhighlight %}
 
 **Huấn luyện viên**: Giải thích ý nghĩa của từng dòng code mới.
 

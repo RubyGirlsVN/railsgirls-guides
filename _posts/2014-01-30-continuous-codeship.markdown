@@ -28,11 +28,11 @@ Bây giờ, repository của bạn đã được kết nối (với Codeship), b
 
 Hoàn tất quá trình thiết lập và đi tới bảng điều khiển (dashboard). Bạn có thể kích hoạt một "bản build mới" cho ứng dụng bằng việc thay đổi cái gì đó trong ứng dụng và push các thay đổi lên repository:
 
-```sh
-git add .  
-git commit -m "test Codeship integration"  
+{% highlight sh %}
+git add .
+git commit -m "test Codeship integration"
 git push origin master
-```
+{% endhighlight %}
 
 Bạn có thể xem thông tin chi tiết về bản build bằng cách nhấn vào mũi tên phía bên phải. Bạn có thể quan sát trong khi bản build này đang chạy. Bảo đảm hay hơn chương tình truyền hình thực tế.
 
@@ -52,10 +52,10 @@ Vậy là từ bây giờ Codeship sẽ triển khai ứng dụng của bạn l�
 
 Bây giờ hãy cùng push một thay đổi và xem thay đổi đó có được deploy hay không. Thay đổi một chút cho ứng dụng của bạn (tiêu đề ứng dụng chẳng hạn), rồi commit và push thay đổi đó lên Github.
 
-```sh
-git add .  
-git commit -m "this changes everything"  
+{% highlight sh %}
+git add .
+git commit -m "this changes everything"
 git push
-```
+{% endhighlight %}
 
 Và ngay sau đó, một bản build mới sẽ bắt đầu chạy trên Codeship. Ứng dụng của bạn sẽ được triển khai tự động lên Heroku và bạn có thể thấy những thay đổi bạn vừa thực hiện trên ứng dụng của mình trên Internet chỉ sau 1 - 2 phút.

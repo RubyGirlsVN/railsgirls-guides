@@ -20,14 +20,14 @@ Làm theo các bước từ 1 đến 3 của [Heroku quickstart guide](https://d
 
 Chúng ta cần đưa các đoạn code của mình vào hệ thống quản lý phiên bản (ở đây là Git). Chạy các lệnh sau trong terminal:
 
-```sh
+{% highlight sh %}
 git init
 echo "public/uploads" >> .gitignore
 echo "tmp" >> .gitignore
 echo "logs" >> .gitignore
 git add .
 git commit -m "initial commit"
-```
+{% endhighlight %}
 
 **Huấn luyện viên**: Đây là thời điểm thích hợp để nói về hệ thống quản lý phiên bản và Git, đồng thời giải thích về `.gitignore` và lí do tại sao chúng ta muốn bỏ qua các tệp tin trên.
 
@@ -35,20 +35,20 @@ git commit -m "initial commit"
 
 Đầu tiên chúng ta cần làm cho cơ sở dữ liệu của ứng dụng hoạt động trên Heroku. Heroku sử dụng một hệ thống cơ sở dữ liệu khác với hệ thống cơ sở dữ liệu ứng dụng của chúng ta đang dùng. Vì thế hãy thay dòng sau trong `Gemfile`:
 
-```ruby
+{% highlight ruby %}
 gem 'sqlite3'
-```
+{% endhighlight %}
 
 thành
 
-```ruby
+{% highlight ruby %}
 group :development do
   gem 'sqlite3'
 end
 group :production do
   gem 'pg'
 end
-```
+{% endhighlight %}
 
 Chạy `bundle install --without production` để cài đặt các dependencies.
 
@@ -62,26 +62,26 @@ Gem này sửa đổi cách Rails làm việc để phù hợp với Heroku, ví
 
 Vui lòng chuyển đoạn sau trong `Gemfile`:
 
-```ruby
+{% highlight ruby %}
 group :production do
   gem 'pg'
 end
-```
+{% endhighlight %}
 
 thành
 
-```ruby
+{% highlight ruby %}
 group :production do
   gem 'pg'
   gem 'rails_12factor'
 end
-```
+{% endhighlight %}
 
 Sau đó chay `bundle`, và commit các thay đổi ở `Gemfile.lock` vào repository của bạn.
 
-```sh
+{% highlight sh %}
 git commit -a -m "Added rails_12factor gem and updated Gemfile.lock"
-```
+{% endhighlight %}
 
 **Huấn luyện viên**: Bạn có thể nói về logging cũng như các hành vi *kì lạ* khác của Heroku.
 
@@ -91,11 +91,11 @@ git commit -a -m "Added rails_12factor gem and updated Gemfile.lock"
 
 Chúng ta cần tạo một ứng dụng trên Heroku bằng cách chạy lệnh `heroku create` trong terminal. Sau khi chạy lệnh, trên màn hình sẽ hiển thị giống như sau:
 
-```sh
+{% highlight sh %}
 Creating sheltered-refuge-6377... done, stack is cedar
 http://sheltered-refuge-6377.herokuapp.com/ | git@heroku.com:sheltered-refuge-6377.git
 Git remote heroku added
-```
+{% endhighlight %}
 
 Trong trường hợp này "sheltered-refuge-6377" là tên ứng dụng của bạn.
 
@@ -103,7 +103,7 @@ Trong trường hợp này "sheltered-refuge-6377" là tên ứng dụng của b
 
 Chúng ta cần đẩy code của ứng dụng lên Heroku bằng lệnh `git push heroku master`. Bạn có thể thấy output ra màn hình như sau:
 
-```sh
+{% highlight sh %}
 Initializing repository, done.
 Counting objects: 101, done.
 Delta compression using up to 2 threads.
@@ -120,7 +120,7 @@ Total 101 (delta 6), reused 0 (delta 0)
 ...
 -----> Launching... done, v6
        http://sheltered-refuge-6377.herokuapp.com/ deployed to Heroku
-```
+{% endhighlight %}
 
 Bạn có thể chắc chắn rằng quá trình đẩy code lên đã thành công khi thấy dòng "Launching..." như ở trên.
 

@@ -12,13 +12,21 @@ permalink: app
 
 ## Làm quen với các công cụ
 
+<div class="indent" markdown="1">
+
+<h3><i class="icon-text-editor">&nbsp;</i></h3>
+
 ### Trình soạn thảo
 
 -  [Atom](https://atom.io/), [Sublime Text](http://www.sublimetext.com), Vim và Emacs là một số trình soạn thảo bạn có thể sử dụng cho việc viết mã và chỉnh sửa tập tin.
 
+<h3><i class="icon-prompt">&nbsp;</i></h3>
+
 ### Terminal (hay Command Prompt trên Windows)
 
 - Nơi bạn khởi động rails server hay chạy lệnh.
+
+<h3><i class="icon-browser">&nbsp;</i></h3>
 
 ### Trình duyệt
 
@@ -28,7 +36,7 @@ permalink: app
 
 Bạn cần chú ý lựa chọn chỉ dẫn chính xác cho hệ điều hành của mình - các lệnh cần chạy trên Windows sẽ khác một chút so với Mac và Linux. Lưu ý những chỗ có chú thích riêng cho Windows. Nếu bạn dùng một dịch-vụ đám-mây (như nitrous), bạn cần chạy các lệnh cho Linux ngay cả khi bạn đang dùng máy tính chạy trên Windows.
 
-## 1. Khởi tạo ứng dụng
+## *1.*Khởi tạo ứng dụng
 
 Chúng ta sẽ khởi tạo một ứng dụng Rails mới với tên gọi *railsgirls*.
 
@@ -41,33 +49,33 @@ Trước hết, hãy mở terminal lên:
 
 Tiếp theo nhập các lệnh sau vào terminal:
 
-```sh
+{% highlight sh %}
 mkdir projects
-```
+{% endhighlight %}
 
 Bạn có thể xác nhận thư mục `projects` đã được tạo bằng cách chạy lệnh `ls` (`dir` cho Windows). Bạn có thể nhìn thấy tên thư mục `projects` hiện ra trên màn hình. Tiếp theo, bạn sẽ muốn chuyển thư mục hiện tại tới thư mục `projects` bằng lệnh:
 
-```sh
+{% highlight sh %}
 cd projects
-```
+{% endhighlight %}
 
 Bạn có thể xác nhận đang ở trong một thư mục rỗng bằng cách chạy lại lệnh `ls` (`dir` cho Windows). Bây giờ chúng ta sẽ khởi tạo một ứng dụng với tên là `railsgirls` với lệnh:
 
-```sh
+{% highlight sh %}
 rails new railsgirls
-```
+{% endhighlight %}
 
 Lệnh này sẽ tạo ra một ứng dụng mới trong thư mục `railsgirls`, vì thế chúng ta sẽ chuyển thư mục hiện tại tới ứng dụng Rails này bằng lệnh:
 
-```sh
+{% highlight sh %}
 cd railsgirls
-```
+{% endhighlight %}
 
 Nếu bạn chạy lệnh `ls` (`dir` cho Windows) ở đây, bạn sẽ thấy các thư mục như `app` hay `config`. Bạn có thể khởi động rails server ngay bây giờ với lệnh:
 
-```sh
+{% highlight sh %}
 rails server
-```
+{% endhighlight %}
 
 Truy cập vào địa chỉ http://localhost:3000 từ trình duyệt. Nếu bạn sử dụng dịch-vụ đám-mây (như nitrous), hãy sử dụng tính năng xem trước (xem chi tiết ở [hướng dẫn cài đặt](install.md#using-a-cloud-service)).
 
@@ -77,15 +85,15 @@ Bạn sẽ thấy trang "Welcome aboard", thể hiện rằng việc khởi tạ
 
 trên Windows
 
-```shell
+{% highlight sh %}
 >
-```
+{% endhighlight %}
 
 trên Mac và Linux
 
-```shell
+{% highlight sh %}
 $
-```
+{% endhighlight %}
 
 Khi command prompt không hiển thị, bạn không thể thực hiện các lệnh mới. Nếu bạn thử chạy `cd` hay một lệnh khác, nó sẽ không chạy. Để đưa command prompt về trạng thái bình thường:
 
@@ -93,31 +101,31 @@ Nhấn `CTRL-C` trong terminal để tắt server.
 
 **Huấn luyện viên**: Giải thích ý nghĩa của mỗi lệnh. Những gì được tạo ra? Server làm những gì?
 
-## 2. Tạo scaffold cho Idea
+## *2.*Tạo scaffold cho Idea
 
 Chúng ta sẽ dùng tính năng scaffold (tạo giàn) để tạo ra một điểm bắt đầu cho phép chúng ta liệt kê, thêm, xóa, sửa và xem các thứ; trong trường hộ này là idea.
 
 **Huấn luyện viên**: Rails scaffolding là gì? (giải thích ý nghĩa của câu lệnh, tên model và bảng liên quan trong cơ sở dữ liệu, qui ước đặt tên, thuộc tính (attributes) và kiểu (type), v.v.)
 
-```sh
+{% highlight sh %}
 rails generate scaffold idea name:string description:text picture:string
-```
+{% endhighlight %}
 
 Quá trình scaffold sẽ tạo ra các tệp tin mới trong thư mục dự án. Sau đó chúng ta cần chạy thêm lệnh sau để cập nhật cơ sở dữ liệu và khởi động lại server:
 
 trên Mac và Linux
 
-```sh
+{% highlight sh %}
 bin/rake db:migrate
 rails server
-```
+{% endhighlight %}
 
 trên Windows
 
-```sh
+{% highlight sh %}
 ruby bin/rake db:migrate
 rails server
-```
+{% endhighlight %}
 
 Truy cập http://localhost:3000/ideas trên trình duyệt. Người dùng dịch-vụ đám-mây (vd nitrous) cần thêm `/ideas` vào sau địa chỉ xem trước (xem [hướng dẫn cài đặt](/install.md#using-a-cloud-service))
 
@@ -125,7 +133,7 @@ Nhấn vào các liên kết mới xuất hiện trong ứng dụng xem chúng t
 
 Nhấn `CTRL-C` trong terminal để tắt server khi bạn không còn dùng ứng dụng.
 
-## *3.* Thiết kế
+## *3.*Thiết kế
 
 **Huấn luyện viên**: Nói về quan hệ giữa HTML và Rails. Phần nào trong `views` là HTML và phần nào là Embedded Ruby (ERB)? MVC là gì và nó có liên quan thế nào tới ứng dụng của chúng ta? (`models` và `controllers` chịu trách nhiệm cho việc tạo ra các HTML `views`)
 
@@ -133,34 +141,34 @@ Nhấn `CTRL-C` trong terminal để tắt server khi bạn không còn dùng �
 
 Mở `app/views/layouts/application.html.erb` bằng trình soạn thảo, và trên dòng
 
-```erb
+{% highlight erb %}
 <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
-```
+{% endhighlight %}
 
 thêm
 
-```erb
+{% highlight erb %}
 <link rel="stylesheet" href="//railsgirls.com/assets/bootstrap.css">
 <link rel="stylesheet" href="//railsgirls.com/assets/bootstrap-theme.css">
-```
+{% endhighlight %}
 
 và thay
 
-```erb
+{% highlight erb %}
 <%= yield %>
-```
+{% endhighlight %}
 
 bằng
 
-```erb
+{% highlight erb %}
 <div class="container">
   <%= yield %>
 </div>
-```
+{% endhighlight %}
 
 Cùng thêm một thanh điều hướng và 'footer' vào bố cục nữa nhé. Trong cùng tập tin đang mở, thêm vào dưới `<body>`
 
-```erb
+{% highlight html %}
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -179,31 +187,31 @@ Cùng thêm một thanh điều hướng và 'footer' vào bố cục nữa nhé
     </div>
   </div>
 </nav>
-```
+{% endhighlight %}
 
 và trước `</body>`, thêm
 
-```erb
+{% highlight html %}
 <footer>
   <div class="container">
     Rails Girls 2015
   </div>
 </footer>
 <script src="//railsgirls.com/assets/bootstrap.js"></script>
-```
+{% endhighlight %}
 
 Bây giờ, chúng ta hãy cùng thay đổi style của bảng ideas. Mở `app/assets/stylesheets/application.css` và thêm vào phía dưới cùng:
 
-``` css
+{% highlight css %}
 body { padding-top: 100px; }
 footer { margin-top: 100px; }
 table, td, th { vertical-align: middle; border: none; }
 th { border-bottom: 1px solid #DDD; }
-```
+{% endhighlight %}
 
 Hãy lưu các thay đổi lại và tải lại trình duyệt để xem những gì đã thay đổi. Bạn cũng có thể tiếp tục sửa HTML và CSS nếu muốn.
 
-Trong trường hợp terminal hiển thị thông báo lỗi đại loại như có vấn đề với JavaSscript hay CoffeeScript, hãy cài đặt [nodejs](http://nodejs.org/download/). Vấn dề này không xảy ra với RailsInstaller (mà xảy ra khi bạn cài đặt Rails qua dòng lệnh `gem install rails` trên Mac và Linux)/
+Trong trường hợp terminal hiển thị thông báo lỗi đại loại như có vấn đề với JavaSscript hay CoffeeScript, hãy cài đặt [nodejs](http://nodejs.org/download/). Vấn dề này không xảy ra với RailsInstaller (mà xảy ra khi bạn cài đặt Rails qua dòng lệnh `gem install rails` trên Mac và Linux)
 
 **Huấn luyện viên**: Nói một chút về CSS và bố cục trang web.
 
@@ -213,15 +221,15 @@ Chúng ta cần cài đặt thêm 1 phần mềm để có thể tải lên tậ
 
 Mở Gemfile trong thư mục của dự án bằng trình soạn thảo và dưới dòng
 
-```ruby
+{% highlight ruby %}
 gem 'sqlite3'
-```
+{% endhighlight %}
 
 và
 
-```ruby
+{% highlight ruby %}
 gem 'carrierwave'
-```
+{% endhighlight %}
 
 **Huấn luyện viên**: Giải thích thư viện là gì, tại sao chúng hữu dụng. Diễn giải về phần mềm mã nguồn mở.
 
@@ -229,15 +237,15 @@ Nhấn `CTRL-C` trong terminal để thoát khỏi server.
 
 Trong terminal chạy:
 
-```sh
+{% highlight sh %}
 bundle
-```
+{% endhighlight %}
 
 Bây giờ chúng ta có thể tạo các đoạn code xử lý việc upload. Trong terminal chạy:
 
-```sh
+{% highlight sh %}
 rails generate uploader Picture
-```
+{% endhighlight %}
 
 Vui lòng khởi động Rails server.
 
@@ -245,55 +253,55 @@ Vui lòng khởi động Rails server.
 
 Mở `app/models/idea.rb` và dưới dòng
 
-```ruby
+{% highlight ruby %}
 class Idea < ActiveRecord::Base
-```
+{% endhighlight %}
 
 thêm
 
-```ruby
+{% highlight ruby %}
 mount_uploader :picture, PictureUploader
-```
+{% endhighlight %}
 
 Mở `app/views/ideas/_form.html.erb` và đổi
 
-```erb
+{% highlight erb %}
 <%= f.text_field :picture %>
-```
+{% endhighlight %}
 
 thành
 
-```erb
+{% highlight erb %}
 <%= f.file_field :picture %>
-```
+{% endhighlight %}
 
 Thỉnh thoảng bạn sẽ gặp phải lỗi `TypeError: can’t cast ActionDispatch::Http::UploadedFile to string`.
 
 Trong trường hợp đó, thay đổi dòng sau trong tệp tin `app/views/ideas/_form.html.erb change the line`
 
-```erb
+{% highlight erb %}
 <%= form_for(@idea) do |f| %>
-```
+{% endhighlight %}
 
 thành
 
-```erb
+{% highlight erb %}
 <%= form_for @idea, :html => {:multipart => true} do |f| %>
-```
+{% endhighlight %}
 
 Trên trình duyệt, thêm idea mới với ảnh đi kèm. Khi bạn upload một ảnh, trông nó không được đẹp lắm vì đường dẫn tới ảnh không chính xác. Hãy cùng sửa lại chỗ này.
 
 Mở `app/views/ideas/show.html.erb` và thay
 
-```erb
+{% highlight erb %}
 <%= @idea.picture %>
-```
+{% endhighlight %}
 
 bằng
 
-```erb
+{% highlight erb %}
 <%= image_tag(@idea.picture_url, :width => 600) if @idea.picture.present? %>
-```
+{% endhighlight %}
 
 Bây giờ hãy tải lại trình duyệt để xem những gì đã thay đổi.
 
@@ -305,9 +313,9 @@ Mở http://localhost:3000 (hay địa chỉ xem trước, nếu bạn dùng m�
 
 Mở `config/routes.rb` và thêm vào sau dòng đầu tiên
 
-```ruby
+{% highlight ruby %}
 root :to => redirect('/ideas')
-```
+{% endhighlight %}
 
 Kiểm tra thay đổi này bằng cách mở root path (đường dẫn gốc) (là http://localhost:3000/ hay địa chỉ xem trước) trên trình duyệt.
 
@@ -317,9 +325,9 @@ Kiểm tra thay đổi này bằng cách mở root path (đường dẫn gốc) 
 
 Hãy cùng thêm một trang tĩnh vào ứng dụng của chúng ta để giữ các thông tin về tác giả của ứng dụng - chính là bạn!
 
-```sh
+{% highlight sh %}
 rails generate controller pages info
-```
+{% endhighlight %}
 
 This command will create you a new folder under `app/views` called `/pages` and under that a file called `info.html.erb` which will be your info page.
 
@@ -327,9 +335,9 @@ Lệnh này sẽ tạo ra một thư mục mới `/pages` nằm trong thư mục
 
 Nó cũng thêm 1 route đơn gian vào trong `config/routes.rb`
 
-```ruby
+{% highlight ruby %}
 get "pages/info"
-```
+{% endhighlight %}
 
 Bây giờ bạn có thể mở tệp tin `app/views/pages/info.html.erb` và thêm các thông tin về bạn bằng HTML. Để xem trang thông tin này, truy cập http://localhost:3000/pages/info, hoặc nếu bạn sử dụng một dịch vụ đám mây, hãy thêm '/pages/info' vào sau địa chỉ xem trước.
 

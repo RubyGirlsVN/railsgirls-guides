@@ -17,15 +17,15 @@ permalink: devise
 
 Mở `Gemfile` và thêm
 
-```ruby
+{% highlight ruby %}
 gem 'devise'
-```
+{% endhighlight %}
 
 rồi chạy
 
-```sh
+{% highlight sh %}
 bundle install
-```
+{% endhighlight %}
 
 để cài đặt gem. **Và nhớ khởi động lại server**.
 
@@ -33,41 +33,41 @@ bundle install
 
 Chạy lệnh sau trong terminal:
 
-```sh
+{% highlight sh %}
 rails g devise:install
-```
+{% endhighlight %}
 
 ## *3.* Cấu hình Devise
 
 Hãy chắc chắn bạn đã định nghĩa `default_url_options` trong các tệp tin môi trường. Mở `config/environments/development.rb` và thêm dòng sau:
 
-```ruby
+{% highlight ruby %}
    config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-```
+{% endhighlight %}
 
 trước từ khóa `end`.
 
 Mở `app/views/layouts/application.html.erb` và thêm:
 
-```erb
+{% highlight erb %}
 <% if notice %>
   <p class="alert alert-success"><%= notice %></p>
 <% end %>
 <% if alert %>
   <p class="alert alert-danger"><%= alert %></p>
 <% end %>
-```
+{% endhighlight %}
 ngay phía trên
 
-```erb
+{% highlight erb %}
    <%= yield %>
-```
+{% endhighlight %}
 
 Mở `app/views/ideas/show.html.erb` và xóa dòng:
 
-```erb
+{% highlight erb %}
 <p id="notice"><%= notice %></p>
-```
+{% endhighlight %}
 
 Làm tương tự với `app/views/comments/show.html.erb`. Những dòng này không còn cần thiết vì chúng ta đã đưa phần "notice" vào tệp tin `app/views/layouts/application.html.erb`.
 
@@ -75,10 +75,10 @@ Làm tương tự với `app/views/comments/show.html.erb`. Những dòng này k
 
 Chúng ta sẽ sử dụng một generator script có sẵn để khởi tạo User model.
 
-```sh
+{% highlight sh %}
    rails g devise user
    rake db:migrate
-```
+{% endhighlight %}
 
 **Huấn luyện viên**: Giải thích về user model được khởi tạo. Các trường (fields) là gì?
 
@@ -94,7 +94,7 @@ Tất cả những việc cần làm bây giờ là thêm liên kết hoặc lư
 
 Để thực hiện, mở `app/views/layouts/application.html.erb` và thêm:
 
-```erb
+{% highlight erb %}
 <p class="navbar-text pull-right">
 <% if user_signed_in? %>
   Logged in as <strong><%= current_user.email %></strong>.
@@ -104,21 +104,21 @@ Tất cả những việc cần làm bây giờ là thêm liên kết hoặc lư
   <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
   <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
 <% end %>
-```
+{% endhighlight %}
 
 vào ngay dưới
 
-```erb
+{% highlight erb %}
 <ul class="nav">
   <li class="active"><a href="/ideas">Ideas</a></li>
 </ul>
-```
+{% endhighlight %}
 
 Cuối cùng, chúng ta sẽ bắt buộc người dùng phải đăng nhập nếu như họ chưa đăng nhập khi sử dụng ứng dụng. Mở `app/controllers/application_controller.rb` và thêm:
 
-```ruby
+{% highlight ruby %}
   before_action :authenticate_user!
-```
+{% endhighlight %}
 
 dưới dòng `protect_from_forgery with: :exception`.
 

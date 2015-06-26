@@ -16,15 +16,15 @@ RSpec là một framework test cho Ruby, nó mô tả các hành vi của ứng 
 
 Để bắt đầu, chúng ta hãy cùng cài đặt RSpec và các dependencies của nó:
 
-```sh
+{% highlight sh %}
 gem install rspec
-```
+{% endhighlight %}
 
 Sau đó chạy:
 
-```sh
+{% highlight sh %}
 rspec --init
-```
+{% endhighlight %}
 
 trong thư mục của dự án đang làm. Lệnh này sẽ tạo ra tệp tin `spec_helper.rb` trong thư mục `spec`, và tệp tin `.rspec`.
 
@@ -32,24 +32,24 @@ Rubyists (các lập trình viên Ruby) thường sử dụng hai từ "test" v�
 
 Trong tệp tin mới vừa tạo, nhập:
 
-```ruby
+{% highlight ruby %}
 require "spec_helper"
 require "idea"
-```
+{% endhighlight %}
 
 Tiếp theo hãy mô tả một trong số các đặc tả kĩ thuật (specification)
 
-```ruby
+{% highlight ruby %}
 describe Idea do
   it "has a title" # your examples (tests) go here
 end
-```
+{% endhighlight %}
 
 Trong terminal chạy:
 
-```sh
+{% highlight sh %}
 rspec spec/lib/idea_spec.rb
-```
+{% endhighlight %}
 
 Lệnh này sẽ output rằng test của bạn đang ở trạng thái `pending` vì bạn chưa triển khai test.
 
@@ -57,30 +57,30 @@ Lệnh này sẽ output rằng test của bạn đang ở trạng thái `pending
 
 Hãy cùng triển khai test case đầu tiên:
 
-```ruby
+{% highlight ruby %}
 describe Idea do
   it "has a title" do # yep, you can totally use 'it'
     idea = Idea.new # creating a new idea 'instance'
     idea.title.should be_true # this is our expectation
   end
 end
-```
+{% endhighlight %}
 
 Chạy lại lệnh phía trên sẽ cho ra output thỏa mãn mục tiêu của bạn.
 
 ### Refactoring
 
-Bạn có thể viết như sau:  
+Bạn có thể viết như sau:
 
-```ruby
+{% highlight ruby %}
 describe Idea do
   its(:title) { should be_true }
 end
-```
+{% endhighlight %}
 
 trông sẽ đẹp hơn rất nhiều, mặc dù có rất nhiều "phép màu" xảy ra ở đoạn code này. Hiện tại, bạn không cần quan tâm nhiều đến những "phép màu" đó, hãy vui vẻ vì chúng ta có thể "refactor" những đoạn code dài thành những đoạn nhỏ đẹp đẽ chỉ với một chút kinh nghiệm.
 
-**Huấn luyện viên**: Nói một chút về refactoring.  
+**Huấn luyện viên**: Nói một chút về refactoring.
 
 ### Đánh dấu các test
 
@@ -88,17 +88,17 @@ Giống như to-do lists, có những test case bạn chưa muốn triển khai 
 
 Bỏ `do` và `end` khỏi nội dung của test case như sau
 
-```ruby
+{% highlight ruby %}
 it "has a title"
-```
+{% endhighlight %}
 
 sẽ đánh dấu test case đó ở trạng thái pending. Với các ứng dụng lớn hơn, khi mà bạn chỉ muốn xử lí từng test mỗi lần, bạn có thể thêm kí tự `x` trước test case như sau:
 
-```ruby
+{% highlight ruby %}
 describe Idea do
   xit "has a title" do
 end
-```
+{% endhighlight %}
 
 hoặc dùng từ `pending` trong test case.
 
@@ -108,7 +108,7 @@ Thường thì chúng ta sẽ thực hiện BDD testing hơi khác một chút. 
 
 Ban đầu chúng ta viết
 
-```ruby
+{% highlight ruby %}
 describe Idea do
   it "has a title"
     idea = Idea.new
@@ -116,25 +116,25 @@ describe Idea do
     # or, alternatively: idea.title.should == true
   end
 end
-```
+{% endhighlight %}
 
 và sau đó tạo tệp tin `idea.rb` khai báo class `Idea `
 
-```ruby
+{% highlight ruby %}
 class Idea
 attr_accessor  :title
 end
-```
+{% endhighlight %}
 
 vì chạy `rspec spec/lib/idea_spec.rb` trong terminal trước khi tạo class `Idea` sẽ output ra lỗi.  May mắn là các lỗi không phải là thứ gì đáng sợ. Lỗi trong RSpec thực tế giúp bạn viết các đoạn code cần thiết.
 
 Hãy thử viết test cho các hướng dẫn tiếp theo để kiểm tra xem bạn có triển khai đúng TẤT CẢ mọi thứ không.
 
-```ruby
+{% highlight ruby %}
 describe Attendee do
   it "tests everything"
 end
-```
+{% endhighlight %}
 
 Nói vậy thôi :D
 
