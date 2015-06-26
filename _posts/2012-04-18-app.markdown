@@ -348,6 +348,11 @@ Bây giờ bạn có thể mở tệp tin `app/views/pages/info.html.erb` và th
 - Sử dụng CoffeeScript (hay JavaScript) để thêm tương tác
 - Thêm tính năng thay đổi kích thước ảnh để ảnh được tải nhanh hơn
 
+## Giải thích các thuật ngữ
+
+Các thuật ngữ chuyên ngành có thể khó hiểu khi xem phiển bản dịch tiếng Việt.
+Thế nên một số từ vẫn được giữ nguyên gốc và được giải thích tại [từ điển thuật ngữ](/glossary)
+
 ## Các hướng dẫn bổ sung
 
 - Guide 0: [Các cheatsheet tiện dụng cho Ruby, Rails, console etc.](https://github.com/PragTob/rails-beginner-cheatsheet)
