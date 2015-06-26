@@ -1,4 +1,4 @@
-# Rails Girls Guides
+# Rails Girls Guides (Vietnamese translation)
 
 Our aim is to give tools for women to understand technology. The Rails Girls events do this by providing a great first experience on building the Internet.
 
@@ -51,6 +51,7 @@ For updates and more follow [@railsgirls](https://twitter.com/railsgirls)
 
 ## Website & Blog
 
+Vietnamese version can be found at http://railsgirls-guides.rubygirls.org.vn
 Official website and blog for Rails Girls movement can be found at http://railsgirls.com
 
 ## E-mail list
