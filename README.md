@@ -51,7 +51,7 @@ For updates and more follow [@railsgirls](https://twitter.com/railsgirls)
 
 ## Website & Blog
 
-Vietnamese version can be found at http://railsgirls-guides.rubygirls.org.vn
+Vietnamese version can be found at http://rails-guides.rubygirls.org.vn
 Official website and blog for Rails Girls movement can be found at http://railsgirls.com
 
 ## E-mail list
