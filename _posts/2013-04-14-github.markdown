@@ -1,3 +1,9 @@
+---
+layout: default
+title: "Đẩy ứng dụng của bạn lên GitHub"
+permalink: github
+---
+
 # Đẩy ứng dụng của bạn lên GitHub
 
 *Viết bởi Alyson La, [@realalysonla](https://www.twitter.com/realalysonla)*
